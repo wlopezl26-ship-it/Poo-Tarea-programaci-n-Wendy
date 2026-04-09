@@ -2,12 +2,14 @@ package Encapsulacion;
 
 public class Cuenta {
 
-	String titular;
-    double saldo;
-
-    public Cuenta(String titular, double saldo) {
+	private String titular;
+    private double saldo;
+    private int pin;
+    
+    public Cuenta(String titular, double saldo, int pin) {
         this.titular = titular;
         this.saldo = saldo;
+        this.pin =pin;
     }
 
     public void depositar(double monto) {
@@ -15,12 +17,16 @@ public class Cuenta {
         System.out.println("Depositado: $" + monto);
     }
 
-    public void retirar(double monto) {
-        if (monto <= saldo) {
-            this.saldo -= monto;
-            System.out.println("Retirado: $" + monto);
+    public void retirar(double monto, int pinIngresado) {
+        if (pinIngresado == this.pin) {
+            if (monto <= saldo) {
+                saldo -= monto;
+                System.out.println("Retiro exitoso. Saldo restante: $" + saldo);
+            } else {
+                System.out.println("Saldo insuficiente.");
+            }
         } else {
-            System.out.println("Error: Saldo insuficiente para retirar $" + monto);
+            System.out.println("PIN incorrecto. Acceso denegado.");
         }
     }
 
